@@ -57,6 +57,5 @@ int main() {
         cout << countPairs(array, n, l, r) << endl;
         delete[] array;
     }
-
     return 0;
 }
