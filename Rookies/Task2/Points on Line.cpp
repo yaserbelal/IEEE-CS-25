@@ -1,51 +1,50 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
+
 using namespace std;
+#define ll long long
 
-int binarySearch(int array[], int size, int target, int start) {
-    int low = start;
-    int high = size - 1;
-    int counter = -1; 
+ll pairs(ll* a, ll n, ll k) {
+    ll count = 0;
+    sort(a, a + n); 
 
-    while (low <= high) {
-        int mid = (low + high) / 2;
-        if (array[mid] <= target) {
-            counter = mid; 
-            low = mid + 1; 
+    for (ll i = 0; i < n - 1; ++i) {
+        ll low = i + 1, high = n - 1;
+        bool found = false;
+        while (low <= high) {
+            ll mid = low + (high - low) / 2;
+
+            if (a[mid] == a[i] - k) {
+                found = true;
+                break;
+            }
+            else if (a[mid] < a[i] - k) {
+                low = mid + 1;
+            }
+            else {
+                high = mid - 1;
+            }
         }
-        else {
-            high = mid - 1;
-        }
-    }
-    return counter;
-}
 
-long long countTriplets(int points[], int size, int d) {
-    long long count = 0;
-
-    for (int i = 0; i < size; ++i) {
-        int maxIndex = binarySearch(points, size, points[i] + d, i);
-
-        if (maxIndex - i >= 2) {
-            int range = maxIndex - i;
-            count += (long long)range * (range - 1) / 2;
+        if (found) {
+            count++;
         }
     }
+
     return count;
 }
 
 int main() {
-    int size, d;
-    cin >> size >> d;
+    ll size, key;
+    cin >> size >> key;
 
-    int* points = new int[size];
-
-    for (int i = 0; i < size; ++i) {
-        cin >> points[i];
+    ll* array = new ll[size];
+    for (ll i = 0; i < size; ++i) {
+        cin >> array[i];
     }
 
-    cout << countTriplets(points, size, d);
+    cout << pairs(array, size, key) << endl;
 
+    delete[] array;
     return 0;
 }
