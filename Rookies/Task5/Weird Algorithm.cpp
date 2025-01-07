@@ -1,9 +1,5 @@
 #include<iostream>
 #include<string>
-#include<vector>
-#include<cmath>
-#include<queue>
-#include<algorithm>
 #define ll long long
 using namespace std;
 void weird(ll num)
